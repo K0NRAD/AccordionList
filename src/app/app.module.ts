@@ -7,10 +7,12 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { AccordionListComponent } from '../components/accordion-list/accordion-list';
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    AccordionListComponent
   ],
   imports: [
     BrowserModule,

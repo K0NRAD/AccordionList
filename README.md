@@ -278,3 +278,16 @@ Now we adjust the home.html file so that the accordion item entries toggle. We m
 The home page now looks as follows.
 
 ![image](https://cloud.githubusercontent.com/assets/3606037/26374570/09d0bff0-4006-11e7-9427-ed38bf0dc1bc.png)
+
+**3. Refactor accordion list to a component**
+
+First we build the accordion list component with Ionic component generator.
+Type the command in your terminal.
+
+```
+ionic g component AccordionList
+``` 
+
+After finished the component generation we remove the file ***src/components/accordion-list.module.ts***
+
+In the folder ***src/components*** wie add a file named **components.module.ts**.
