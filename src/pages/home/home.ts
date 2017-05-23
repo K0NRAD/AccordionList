@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   accordionItems: AccordionItem[];
+  showAccordionItem = null;
 
   constructor(private accordionService: AccordionService, public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -23,4 +24,15 @@ export class HomePage {
       });
   }
 
+  toggleAccordionItem(item) {
+    if (this.isAccordionItemShown(item)) {
+      this.showAccordionItem = null;
+    } else {
+      this.showAccordionItem = item;
+    }
+  }
+
+  isAccordionItemShown(item) {
+    return this.showAccordionItem === item;
+  }
 }

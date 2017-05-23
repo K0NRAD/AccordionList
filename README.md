@@ -226,9 +226,55 @@ We add an **ion-list** to the content of **home.html**.
 </ion-list>
 ...
 ```
-After saving the changed files, the home page look like this.
+After saving the changed files, the home page looks like this.
 
 ![image](https://cloud.githubusercontent.com/assets/3606037/26364367/64e69486-3fe4-11e7-9476-2ffcf03e8fc3.png)
 
+Now wie add the functions to toggle the accordion list in the file ***src/pages/home/home.ts***.
 
+Previous we add an attribute named **showAccordionItem**.
 
+```
+  showAccordionItem = null;
+```
+Next we add the two functions .
+
+```
+  ...
+  toggleAccordionItem(item) {
+    if (this.isAccordionItemShown(item)) {
+      this.showAccordionItem = null;
+    } else {
+      this.showAccordionItem = item;
+    }
+  }
+
+  isAccordionItemShown(item) {
+    return this.showAccordionItem === item;
+  }
+  ...
+```
+
+Now we adjust the home.html file so that the accordion item entries toggle. We modify the ion-content as shown below.
+
+```
+...
+<ion-list no-lines>
+    <ion-item *ngFor="let item of accordionItems; let i = index">
+      <h2>
+        <ion-item (click)="toggleAccordionItem(i)" [color]="isAccordionItemShown(i) ? 'primary' : '' ">
+          <ion-icon [name]="isAccordionItemShown(i) ? 'arrow-dropdown' : 'arrow-dropright'" item-left></ion-icon>
+          {{item.title}}
+        </ion-item>
+        <div *ngIf="isAccordionItemShown(i)">
+          {{item.description}}
+        </div>
+      </h2>
+    </ion-item>
+</ion-list>
+...
+```
+
+The home page now looks as follows.
+
+![image](https://cloud.githubusercontent.com/assets/3606037/26374570/09d0bff0-4006-11e7-9427-ed38bf0dc1bc.png)
