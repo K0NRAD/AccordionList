@@ -1,5 +1,7 @@
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { AccordionItem } from '../../models/accordion-item/accordion-item.interface';
+import { AccordionService } from '../../providers/accordion-service';
 import { Component } from '@angular/core';
 
 @IonicPage()
@@ -8,12 +10,17 @@ import { Component } from '@angular/core';
   templateUrl: 'home.html',
 })
 export class HomePage {
+  accordionItems: AccordionItem[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private accordionService: AccordionService, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Home');
+    this.accordionService.loadArccordionItems()
+      .subscribe(respose => {
+        this.accordionItems = respose
+        console.log("AccordionItems: " + this.accordionItems);
+      });
   }
 
 }
