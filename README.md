@@ -275,9 +275,10 @@ Now we adjust the home.html file so that the accordion item entries toggle. We m
 ...
 ```
 
-The home page now looks as follows.
+The home page looks as below now.
 
-![image](https://cloud.githubusercontent.com/assets/3606037/26374570/09d0bff0-4006-11e7-9427-ed38bf0dc1bc.png)
+![image](https://cloud.githubusercontent.com/assets/3606037/26414144/89811b2a-40ae-11e7-8ebe-4142405d84a9.png)
+
 
 **3. Refactor accordion list to a component**
 
