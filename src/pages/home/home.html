@@ -5,17 +5,5 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list no-lines>
-    <ion-item *ngFor="let item of accordionItems; let i = index">
-      <h2>
-        <ion-item (click)="toggleAccordionItem(i)" [color]="isAccordionItemShown(i) ? 'primary' : '' ">
-          <ion-icon [name]="isAccordionItemShown(i) ? 'arrow-dropdown' : 'arrow-dropright'" item-left></ion-icon>
-          {{item.title}}
-        </ion-item>
-        <div *ngIf="isAccordionItemShown(i)">
-          {{item.description}}
-        </div>
-      </h2>
-    </ion-item>
-  </ion-list>
+  <app-accordion-list [accordionItems]='accordionItems' (accordionItem)="selectedItem($event)"></app-accordion-list>
 </ion-content>

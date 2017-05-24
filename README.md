@@ -291,3 +291,146 @@ ionic g component AccordionList
 After finished the component generation we remove the file ***src/components/accordion-list.module.ts***
 
 In the folder ***src/components*** wie add a file named **components.module.ts**.
+
+The content of this file see you below.
+
+```
+import { IonicModule } from 'ionic-angular';
+import { NgModule } from '@angular/core';
+import { AccordionListComponent } from './accordion-list/accordion-list.component';
+
+@NgModule({
+  declarations: [
+    AccordionListComponent,
+  ],
+  imports: [
+    IonicModule
+  ],
+  exports: [
+    AccordionListComponent
+  ]
+})
+export class ComponentsModule { }
+```
+
+Check the file ***src/app/app.module.ts***, with Ionic-Cli 3.x, is there a new entry with the generated component. 
+
+Remove the component import
+
+```
+import { AccordionListComponent } from '../components/accordion-list/accordion-list';
+```
+
+and the entry in @NgModule declarations.
+
+```
+
+@NgModule({
+  declarations: [
+    MyApp,
+    AccordionListComponent <-- remove
+  ],
+```
+
+Now wie open the file ***src/pages/home/home.html*** and copy the content of **ion-content** in the file ***src/components/accordion-list/accordion-list.component.html***.
+
+We do the same with the methodes from ***src/pages/home/home.ts***, these methodes come into the file ***src/components/accordion-list/accordion-list.component.ts***
+
+```
+ accordionItems: AccordionItem[];
+ showAccordionItem = null;
+
+ toggleAccordionItem(item) {
+    if (this.isAccordionItemShown(item)) {
+      this.showAccordionItem = null;
+    } else {
+      this.showAccordionItem = item;
+    }
+  }
+
+  isAccordionItemShown(item) {
+    return this.showAccordionItem === item;
+  }
+```
+
+Don't forget to import the AccordionItem interace.
+
+```
+import { AccordionItem } from '../../models/accordion-item/accordion-item.interface';
+```
+
+We want pass the accordion list data from the home page into th accordion-list component. So wie use the @Input() annotation to inject the list data.
+
+```
+@Input() accordionItems: AccordionItem[];
+```
+
+We have to import the Input from angular core
+
+```
+import { Input } from '@angular/core';
+```
+
+We add now the the accordion-list component to the home page. In the code below you see that the list data will be passed from the home page into the accordion component.
+
+```
+...
+<ion-content padding>
+  <app-accordion-list [accordionItems]='accordionItems'></app-accordion-list>
+</ion-content>
+...
+```
+
+The app looks like this now.
+
+![image](https://cloud.githubusercontent.com/assets/3606037/26412557/6ea34378-40a9-11e7-88b1-0decc79385e4.png)
+
+We want as result from the accordion component the selected accordion item. We use an EventEmitter to emit the selected accordion item.
+
+In the file ***src/components/accordion-list/accordion-list.component.ts*** add the import for @Output() and EventEmitter.
+
+```
+import { EventEmitter, Output } from '@angular/core';
+```
+
+define the event emitter.
+
+```
+@Output() accordionItem: EventEmitter<AccordionItem>;
+```
+
+instanciate the event emitter in the constuctor  
+
+````
+  constructor() {
+    this.accordionItem = new EventEmitter<AccordionItem>()
+  }
+````
+
+and add the click event handler for emitting the selected item.
+
+```
+selectItem(item: AccordionItem) {
+    this.accordionItem.emit(item);
+  }
+```
+
+In the home page html file we add the collect the emitted event
+
+```
+<ion-content padding>
+  <app-accordion-list [accordionItems]='accordionItems' (accordionItem)="selectedItem($event)"></app-accordion-list>
+</ion-content>
+```
+
+Finaly we implement the event handler for the emmitted event from the accordion-list component. We only log the content of the catched event to the console log.
+
+```
+selectedItem(item: AccordionItem) {
+    console.log(item);
+}
+```
+
+
+![image](https://cloud.githubusercontent.com/assets/3606037/26413772/4e5d9f2e-40ad-11e7-9d46-3ea38909f093.png)
+
